@@ -1,0 +1,30 @@
+{
+  "name": "todoapp",
+  "version": "1.0.0",
+  "description": "A modern and responsive task manager app built with React that lets users add, categorize, and manage tasks with icons, colors, and interactive features.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently  \"npm run server\" \"npm run client\" ",
+    "data:import": "node backend/seeder.js ",
+    "data:destroy": "node backend/seeder.js -d"
+  },
+  "author": "Balayeva Aytac",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "color": "^5.0.0",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.16.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "dotenv": "^16.5.0",
+    "nodemon": "^3.1.10"
+  }
+}
