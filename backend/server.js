@@ -5,31 +5,24 @@ import taskRouter from "./routes/taskRouter.js";
 import userRoutes from "./routes/userRoutes.js";
 import connectDB from "./config/db.js";
 import path from "path";
-import { fileURLToPath } from "url";
 import { notFound, errorHandler } from "./middleware/errorHandler.js";
 dotenv.config();
+
 const port = process.env.PORT || 5000;
+
 // Connect to MongoDB
 connectDB();
 
 const app = express();
-//Body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Middleware to parse JSON
 app.use(cookieParser());
 
-// Root route
-
-// Task API routes
+// API Routes
 app.use("/api/tasks", taskRouter);
-//User API routes
 app.use("/api/users", userRoutes);
-// Error handling middleware
-app.use(notFound);
-app.use(errorHandler);
 
+// 🧠 Serve Frontend in production
 const __dirname = path.resolve();
 
 if (process.env.NODE_ENV === "production") {
@@ -38,6 +31,10 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
   );
 }
+
+// ❌ Moved to bottom so frontend routes are handled first
+app.use(notFound);
+app.use(errorHandler);
 
 // Start server
 app.listen(port, () => {
